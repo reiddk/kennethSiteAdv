@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import Head from 'next/head';
+import Navbar from '../components/navbar/navbar';
 
 class IndexPage extends Component {
   static getInitialProps(context) {
@@ -13,11 +14,18 @@ class IndexPage extends Component {
 
   render() {
     return (
-      <div>
-      <Head>
-        <title>My styled page</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
-      </Head>
+      <div className="blogpost-component">
+          <Head>
+              <title>Kenneth Kuttler</title>
+              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+              <link rel="stylesheet" href="/static/styles.css"/>
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          </Head>
+          <div className="container">
+              <div className="row">
+                <Navbar selected="Home"/>
+              </div>
+          </div>
       </div>
     );
   }

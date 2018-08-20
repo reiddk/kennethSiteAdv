@@ -1,7 +1,8 @@
 const routes = module.exports = require('next-routes')();
 
 routes
-.add('books', '/books/:slug')
+.add('books', '/books/:book/:page')
+
 /*
 .add('blog', '/blog/:slug')
 .add('user', '/user/:id', 'profile')

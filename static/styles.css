@@ -1,0 +1,70 @@
+.mathImage > svg {
+    max-width: 100%;
+}
+
+.mathImage {
+    display: inline-block;
+}
+
+.dropdown-menu {
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.dropdown-toggle {
+	cursor: pointer;
+}
+
+.dropdown-menu, .showDropDown {
+    opacity: 0;
+    visibility: hidden;
+    display:block;
+    top: -10px;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.showDropDown {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+}
+
+
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-spinner div {
+  transform-origin: 32px 32px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #000;
+  border-color: #000 transparent #000 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

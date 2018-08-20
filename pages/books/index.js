@@ -3,74 +3,91 @@ import Link from "next/link";
 import Router from "next/router";
 import Head from 'next/head';
 import axios from '../../axiosBooks';
-import renderHTML from 'react-render-html';
+import Page from '../../components/page/index';
+import Navbar from '../../components/navbar/navbar';
 
 class IndexPage extends Component {
   state = {
     url: null,
     title: 'Kenneth Kuttler',
-    contents: null
+    contents: null,
+    page: null
   }
 
-  getBook(url) {
-    axios.get(url)
-      .then(res => {
-        const contents = res.data;
-        this.setState({ contents: contents });
-      })
-      .catch(e => e);
-  }
-
-  componentDidMount () {
-    if (this.props.theUrl) {
-      this.getBook(this.props.theUrl);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if(prevProps.theUrl !== this.props.theUrl) {
-      this.getBook(this.props.theUrl);
-    }
-  }
-
-  static getInitialProps({query}) {
+  static async getInitialProps({query}) {
+    console.log(query);
     let nameToTitle = [
-      {url: 'AdvancedCalculusSV/contentsIndex.json', title: 'Advanced Calculus Single Variable'},
-      {url: 'Analysis/contentsIndex.json', title: 'Analysis'},
-      {url: 'ComplexAnalysis/contentsIndex.json', title: 'Complex Analysis'},
-      {url: 'ElementaryLinearAlgebra/contentsIndex.json', title: 'Elementary Linear Algebra'},
-      {url: 'EngineeringMath/contentsIndex.json', title: 'Engineering Math'},
-      {url: 'Linearalgebra/contentsIndex.json', title: 'Linear Algebra'},
-      {url: 'LinearAlgebraAndAnalysis/contentsIndex.json', title: 'Linear Algebra and Analysis'},
-      {url: 'TopicsInAnalysis/contentsIndex.json', title: 'Topics In Analysis'},
+      {book: 'AdvancedCalculusSV', title: 'Advanced Calculus Single Variable'},
+      {book: 'Analysis', title: 'Analysis'},
+      {book: 'ComplexAnalysis', title: 'Complex Analysis'},
+      {book: 'ElementaryLinearAlgebra', title: 'Elementary Linear Algebra'},
+      {book: 'EngineeringMath', title: 'Engineering Math'},
+      {book: 'Linearalgebra', title: 'Linear Algebra'},
+      {book: 'LinearAlgebraAndAnalysis', title: 'Linear Algebra and Analysis'},
+      {book: 'TopicsInAnalysis', title: 'Topics In Analysis'},
     ];
+
     let title = "Kenneth Kuttler";
-    let url = null;
-    if (query.slug) {
+    let book = null;
+    let pageId = query.page;
+    if (query.book) {
       for (let i = 0; i < nameToTitle.length; i++) {
-        if (query.slug.match(new RegExp(nameToTitle[i], 'i'))) {
+        if (query.book.match(new RegExp(nameToTitle[i].book, 'i'))) {
           title = nameToTitle[i].title;
-          url = nameToTitle[i].url;
+          book = nameToTitle[i].book;
         }
       }
     }
+    const responseContents = await axios.get(book + '/contentsIndex.json');
+    let contentsIndex = null;
+    if(responseContents && responseContents.data){
+      contentsIndex = responseContents.data
+    }
+
+    const response = await axios.get(book + '/' + pageId + '.html');
+    let page = null;
+    if(response && response.data){
+      page = response.data
+    }
     const promise = new Promise((resolve, reject) => {
-        resolve({ appName: title, theUrl: url });
+        resolve({ appName: title, theBook: book, page: page, contents: contentsIndex });
     });
     return promise;
   }
 
   render() {
     let bookHtml = null;
-    if (this.state.html) {
-      bookHtml = this.state.html;
+    if (this.props.page) {
+      bookHtml = this.props.page;
+    }
+    if (this.state.page) {
+      bookHtml = this.state.page;
     }
     return (
-    <div className="blogpost-component">
-      <Head>
-        <title>{this.props.appName}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
-      </Head>
+      <div className="blogpost-component">
+
+          <Head>
+              <title>{this.props.appName}</title>
+              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+              <link rel="stylesheet" href="/static/styles.css"/>
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          </Head>
+          <div className="container">
+              <div className="row">
+                <Navbar selected={this.state.url}/>
+              </div>
+              <div className="row">
+                  <div className="col-sm-1">
+                      asdf
+                  </div>
+                  <div className="col-sm-9">
+                      <Page html={bookHtml}/>
+                  </div>
+                  <div className="col-sm-2 hidden-xs">
+                      asdf
+                  </div>
+              </div>
+          </div>
       </div>
     );
   }

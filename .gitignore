@@ -1,2 +1,8 @@
 node_modules
 build
+.next/*
+next
+bundles
+dist
+.*
+!.*/
