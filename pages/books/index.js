@@ -5,6 +5,8 @@ import Head from 'next/head';
 import axios from '../../axiosBooks';
 import Page from '../../components/page/index';
 import Navbar from '../../components/navbar/navbar';
+import Header from '../../components/header/header';
+import BookNav from '../../components/bookNav/bookNav';
 
 class IndexPage extends Component {
   state = {
@@ -15,7 +17,6 @@ class IndexPage extends Component {
   }
 
   static async getInitialProps({query}) {
-    console.log(query);
     let nameToTitle = [
       {book: 'AdvancedCalculusSV', title: 'Advanced Calculus Single Variable'},
       {book: 'Analysis', title: 'Analysis'},
@@ -68,23 +69,24 @@ class IndexPage extends Component {
 
           <Head>
               <title>{this.props.appName}</title>
-              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+              <link rel="stylesheet" href="/static/bootstrap.min.css"/>
               <link rel="stylesheet" href="/static/styles.css"/>
               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           </Head>
-          <div className="container">
+          
               <div className="row">
                 <Navbar selected={this.state.url}/>
               </div>
+              <div>
+                <Header />
+              </div>  
+              <div className="container">
               <div className="row">
-                  <div className="col-sm-1">
-                      asdf
-                  </div>
                   <div className="col-sm-9">
                       <Page html={bookHtml}/>
                   </div>
-                  <div className="col-sm-2 hidden-xs">
-                      asdf
+                  <div className="col-sm-3 d-none d-md-block">
+                      <BookNav />
                   </div>
               </div>
           </div>

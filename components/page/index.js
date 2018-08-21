@@ -18,7 +18,7 @@ class Page extends Component {
 			htmlDisplayed = renderHTML(this.props.html);
 		}
 		return (
-		<div>
+		<div className="page section-wrapper">
 			{htmlDisplayed}
 		</div>
 		);	

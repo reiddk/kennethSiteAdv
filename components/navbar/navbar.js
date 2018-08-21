@@ -53,7 +53,7 @@ handleClickOutside(event) {
 
 render() {
 
-	let dropDownClasses = ['dropdown-menu'];
+	let dropDownClasses = ['dropdown-menu', 'd-none d-md-block'];
 	if (this.state && this.state.showDropDown) {
 		dropDownClasses.push("showDropDown");
 	}
@@ -86,7 +86,35 @@ render() {
 		        <span onClick={this.toggleDropDownHandler} className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		          Books
 		        </span>
+
 		        <div onClick={this.hideDropDownHandler} className={dropDownClasses.join(" ")} aria-labelledby="navbarDropdown">
+		        <Link route='/books/AdvancedCalculusSV/x1-20001'>
+		          <a className="dropdown-item" href="/books/AdvancedCalculusSV/x1-20001">Advanced Calculus (Single Variable)</a>
+		        </Link>
+		        <Link route='/books/Analysis/x1-2000I'>
+		          <a className="dropdown-item" href="/books/Analysis/x1-2000I">Analysis</a>
+		        </Link>
+		        <Link route='/books/ComplexAnalysis/x1-3000I'>
+		          <a className="dropdown-item" href="/books/ComplexAnalysis/x1-3000I">Complex Analysis</a>
+		        </Link>
+		        <Link route='/books/ElementaryLinearAlgebra/x1-30001'>
+		          <a className="dropdown-item" href="/books/ElementaryLinearAlgebra/x1-30001">Elementary Linear Algebra</a>
+		        </Link>
+		        <Link route='/books/EngineeringMath/x1-20001'>
+		          <a className="dropdown-item" href="/books/EngineeringMath/x1-20001">Engineering Math</a>
+		        </Link>
+		        <Link route='/books/Linearalgebra/x1-30001'>
+		          <a className="dropdown-item" href="/books/Linearalgebra/x1-30001">Linear Algebra</a>
+		        </Link>
+		        <Link route='/books/LinearAlgebraAndAnalysis/x1-30001'>
+		          <a className="dropdown-item" href="/books/LinearAlgebraAndAnalysis/x1-30001">Linear Algebra and Analysis</a>
+		        </Link>
+		        <Link route='/books/TopicsInAnalysis/x1-2000I'>
+		          <a className="dropdown-item" href="/books/TopicsInAnalysis/x1-2000I">Topics in Analysis</a>
+		        </Link>
+		        </div>
+
+		        <div onClick={this.hideDropDownHandler} className="d-md-none dropdown-menu showDropDown" aria-labelledby="navbarDropdown">
 		        <Link route='/books/AdvancedCalculusSV/x1-20001'>
 		          <a className="dropdown-item" href="/books/AdvancedCalculusSV/x1-20001">Advanced Calculus (Single Variable)</a>
 		        </Link>
