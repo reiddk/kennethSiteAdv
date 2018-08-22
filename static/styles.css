@@ -123,6 +123,7 @@
     margin-top: 40px;
     min-height: 800px;
         padding: 15px;
+        margin-bottom:40px;
 }
 
 .section-wrapper {
@@ -136,7 +137,7 @@
 
 @media screen and (max-width: 500px) {
   .page {
-          padding: 0px;
+    padding: 0px;
   }
 
   .section-wrapper {
@@ -150,10 +151,16 @@
 
 .book-nav {
   margin-top: 40px;
-  min-height:400px;
+  height:400px;
+  overflow-y:scroll;
 }
 
 .book-nav-fixed {
   position:fixed;
   top:25px;
+}
+
+.contents-relative {
+  position:relative;
+  height:100%;
 }

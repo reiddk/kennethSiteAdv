@@ -50,8 +50,37 @@ class IndexPage extends Component {
     if(response && response.data){
       page = response.data
     }
+    let builtContents = null;
+    if (contentsIndex) {
+        let tree = {part: "", chapter: "", section: "", subsection: ""};
+         builtContents = contentsIndex.map(page => {
+          if (page.type === 'part') {
+            tree['part'] = page.link;
+            tree['chapter'] = "";
+            tree['section'] = "";
+            tree['subsection'] = "";
+          }
+          if (page.type === 'chapter') {
+            tree['chapter'] = page.link;
+            tree['section'] = "";
+            tree['subsection'] = "";
+          }
+          if (page.type === 'section') {
+            tree['section'] = page.link;
+            tree['subsection'] = "";
+          }
+          if (page.type === 'subsection') {
+            tree['subsection'] = page.link;
+          }
+          const outPage = {...page};
+          outPage['tree'] = {...tree};
+          return outPage;
+        });
+    }
+      console.log(builtContents);
+
     const promise = new Promise((resolve, reject) => {
-        resolve({ appName: title, theBook: book, page: page, contents: contentsIndex });
+        resolve({ appName: title, theBook: book, page: page, contents: builtContents });
     });
     return promise;
   }
@@ -86,7 +115,7 @@ class IndexPage extends Component {
                       <Page html={bookHtml}/>
                   </div>
                   <div className="col-sm-3 d-none d-md-block">
-                      <BookNav />
+                      <BookNav contents={this.props.contents}/>
                   </div>
               </div>
           </div>
