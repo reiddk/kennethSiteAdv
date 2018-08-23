@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import renderHTML from 'react-render-html';
 
 class Page extends Component {
 
@@ -15,7 +14,7 @@ class Page extends Component {
 		);
 
 		if (this.props.html) {
-			htmlDisplayed = renderHTML(this.props.html);
+			htmlDisplayed = <div dangerouslySetInnerHTML={{__html: this.props.html}} />
 		}
 		return (
 		<div className="page section-wrapper">

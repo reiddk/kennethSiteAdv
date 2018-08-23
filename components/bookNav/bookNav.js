@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import renderHTML from 'react-render-html';
+import {Link} from '../../routes'
 
 class BookNav extends Component {
   state = {
@@ -22,7 +23,7 @@ class BookNav extends Component {
     const lastScrollY = window.scrollY;
 	const bodyRect = document.body.getBoundingClientRect();
 	const offset   = 225;
-	const parentWidth = ReactDOM.findDOMNode(this).clientWidth;
+	const parentWidth = ReactDOM.findDOMNode(this).parentElement.clientWidth;
 	let fixed = this.state.fixIt;
 
 	if (!fixed && offset < lastScrollY) {
@@ -44,12 +45,45 @@ class BookNav extends Component {
 		}
 		if (this.props.contents) {
 			const contentsTemp = this.props.contents;
+			const chapter = contentsTemp.filter(link => {
+				if (link.tree.part === this.props.currPage
+					|| link.tree.chapter === this.props.currPage
+					|| link.tree.section === this.props.currPage
+					|| link.tree.subsection === this.props.currPage) {
+					return true;
+				} else {
+					return false;
+				}
+			})[0].tree.chapter;
 			contentsRendered = contentsTemp.map(link => {
-				let temporalDivElement = document.createElement("div");
-			    temporalDivElement.innerHTML = link.name;
-			     console.log(temporalDivElement.textContent || temporalDivElement.innerText || "");
-
-				return renderHTML(link.name);
+				let headClasses = ['sectionLink'];
+				if (this.props.currPage === link.link) {
+					headClasses.push('selected');
+				}
+				if (link.tree.part === this.props.currPage
+					|| link.tree.chapter === this.props.currPage
+					|| link.tree.section === this.props.currPage
+					|| link.tree.subsection === this.props.currPage 
+					|| chapter === link.tree.chapter) {
+					headClasses.push('show');
+				}
+				if (link.type === 'chapter') {
+					headClasses.push('chapter');
+					return <h4 className={headClasses.join(" ")} key={link.link}><Link route={'/books/' + this.props.book + '/' + link.link}><a href={'/books/' + this.props.book + '/' + link.link}>Chapter {link.plainText}</a></Link></h4>
+				}
+				if (link.type === 'section') {
+					headClasses.push('section');
+					return <h5 className={headClasses.join(" ")} key={link.link}><Link route={'/books/' + this.props.book + '/' + link.link}><a href={'/books/' + this.props.book + '/' + link.link}>{link.plainText}</a></Link></h5>
+				}
+				if (link.type === 'subsection') {
+					headClasses.push('subsection');
+					return <h6 className={headClasses.join(" ")} key={link.link}><Link route={'/books/' + this.props.book + '/' + link.link}><a href={'/books/' + this.props.book + '/' + link.link}>{link.plainText}</a></Link></h6>
+				}
+				if (link.type === 'part') {
+					headClasses.push('part');
+					return <h3 className={headClasses.join(" ")} key={link.link}><Link route={'/books/' + this.props.book + '/' + link.link}><a href={'/books/' + this.props.book + '/' + link.link}>Part {link.plainText}</a></Link></h3>
+				}
+				return null;
 			});
 		}
 		return (

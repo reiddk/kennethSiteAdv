@@ -163,4 +163,66 @@
 .contents-relative {
   position:relative;
   height:100%;
+  padding: 15px;
+}
+
+.part {
+  font-size: 18px;
+}
+
+.sectionLink a{
+    text-decoration: none;
+    color: black;
+    width:100%;
+    display:block;
+}
+
+.sectionLink {
+    padding:5px;
+}
+
+.sectionLink:hover{
+-webkit-box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
+-moz-box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
+box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
+
+
+}
+
+.chapter {
+  font-size: 16px;
+}
+
+
+.section {
+  display:none;
+  font-size: 14px;
+  margin-left: 10px;
+  padding-left:5px;
+  border-left-style:dotted;
+  border-left-color:grey;
+  border-left-width:1px;
+}
+
+
+.subsection {
+  display:none;
+  font-size: 12px;
+  margin-left: 20px;
+  padding-left:5px;
+  border-left-style:dotted;
+  border-left-color:grey;
+  border-left-width:1px;
+}
+
+
+.selected {
+  border-left-color:grey;
+  border-left-style:solid;
+  border-left-width:5px;
+  padding-left:5px;
+}
+
+.show {
+  display:block !important;
 }

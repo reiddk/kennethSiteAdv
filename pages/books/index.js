@@ -7,6 +7,8 @@ import Page from '../../components/page/index';
 import Navbar from '../../components/navbar/navbar';
 import Header from '../../components/header/header';
 import BookNav from '../../components/bookNav/bookNav';
+import pako from 'pako';
+import base64 from 'base-64';
 
 class IndexPage extends Component {
   state = {
@@ -45,11 +47,16 @@ class IndexPage extends Component {
       contentsIndex = responseContents.data
     }
 
-    const response = await axios.get(book + '/' + pageId + '.html');
+    const response = await axios.get(book + '/' + pageId + '.txt');
     let page = null;
     if(response && response.data){
-      page = response.data
+      page = response.data;
+      page = pako.inflate(base64.decode(page), { to: 'string' });
+      if (page.indexOf('class="subsectionHead">') > -1 && page.indexOf('<h4 class="subsectionHead">') === -1) {
+        page = page.replace('class="subsectionHead">', '<h4 class="subsectionHead">');
+      }
     }
+    page = page.replace(/<script/gi, '')
     let builtContents = null;
     if (contentsIndex) {
         let tree = {part: "", chapter: "", section: "", subsection: ""};
@@ -74,13 +81,13 @@ class IndexPage extends Component {
           }
           const outPage = {...page};
           outPage['tree'] = {...tree};
+          outPage['plainText'] = outPage.name.replace(/<(?:.|\n)*?>/gm, '').replace(/(CONTENTS|\n)*/gi, '').trim();
           return outPage;
         });
     }
-      console.log(builtContents);
 
     const promise = new Promise((resolve, reject) => {
-        resolve({ appName: title, theBook: book, page: page, contents: builtContents });
+        resolve({ appName: title, theBook: book, page: page, contents: builtContents, currPageId: pageId });
     });
     return promise;
   }
@@ -111,11 +118,11 @@ class IndexPage extends Component {
               </div>  
               <div className="container">
               <div className="row">
-                  <div className="col-sm-9">
+                  <div className="col-md-9">
                       <Page html={bookHtml}/>
                   </div>
-                  <div className="col-sm-3 d-none d-md-block">
-                      <BookNav contents={this.props.contents}/>
+                  <div className="col-md-3 d-none d-md-block" style={{padding: 0}}>
+                      <BookNav contents={this.props.contents} book={this.props.theBook} currPage={this.props.currPageId}/>
                   </div>
               </div>
           </div>

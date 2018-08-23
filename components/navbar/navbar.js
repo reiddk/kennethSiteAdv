@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Head from 'next/head'
 import {Link} from '../../routes'
+import Aux from '../hoc/Aux/Aux';
+import NProgress from 'nprogress';
+import Router from 'next/router'
+
+Router.onRouteChangeStart = (url) => {
+  console.log(`Loading: ${url}`)
+  NProgress.start()
+}
+Router.onRouteChangeComplete = () => NProgress.done()
+Router.onRouteChangeError = () => NProgress.done()
+
+
+
 
 class Navbar extends Component {
 
@@ -67,6 +81,10 @@ render() {
 	}
 
 	return (
+		<Aux>
+	    <Head>
+	      <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
+	    </Head>
 		<nav className="navbar navbar-expand-md fixed-top navbar-dark bg-dark" ref={wrapperRef}>
 		<Link route='/'>
 		  <a className="navbar-brand" href="/">Kenneth Kuttler</a>
@@ -144,6 +162,7 @@ render() {
 		    </ul>
 		  </div>
 		</nav>
+		</Aux>
 	);
 }
 
