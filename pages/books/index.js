@@ -58,9 +58,19 @@ class IndexPage extends Component {
     }
     page = page.replace(/<script/gi, '')
     let builtContents = null;
+    let lastPage = null;
+    let currPage = null;
+    let nextPage = null;
     if (contentsIndex) {
         let tree = {part: "", chapter: "", section: "", subsection: ""};
          builtContents = contentsIndex.map(page => {
+          if (lastPage !== null && nextPage === null) {
+            nextPage = page.link;
+          }
+          if (page.link === pageId) {
+            lastPage = currPage;
+          }
+            currPage = page.link;
           if (page.type === 'part') {
             tree['part'] = page.link;
             tree['chapter'] = "";
@@ -87,7 +97,7 @@ class IndexPage extends Component {
     }
 
     const promise = new Promise((resolve, reject) => {
-        resolve({ appName: title, theBook: book, page: page, contents: builtContents, currPageId: pageId });
+        resolve({ appName: title, theBook: book, page: page, contents: builtContents, currPageId: pageId, lastPage: lastPage, nextPage: nextPage });
     });
     return promise;
   }
@@ -107,6 +117,7 @@ class IndexPage extends Component {
               <title>{this.props.appName}</title>
               <link rel="stylesheet" href="/static/bootstrap.min.css"/>
               <link rel="stylesheet" href="/static/styles.css"/>
+              <link rel="stylesheet" href="/static/fonts/font-awesome.min.css"/>
               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           </Head>
           
@@ -119,7 +130,7 @@ class IndexPage extends Component {
               <div className="container">
               <div className="row">
                   <div className="col-md-9">
-                      <Page html={bookHtml}/>
+                      <Page html={bookHtml} book={this.props.theBook} lastPage={this.props.lastPage} nextPage={this.props.nextPage}/>
                   </div>
                   <div className="col-md-3 d-none d-md-block" style={{padding: 0}}>
                       <BookNav contents={this.props.contents} book={this.props.theBook} currPage={this.props.currPageId}/>

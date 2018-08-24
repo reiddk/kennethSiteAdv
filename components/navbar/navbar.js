@@ -7,7 +7,6 @@ import NProgress from 'nprogress';
 import Router from 'next/router'
 
 Router.onRouteChangeStart = (url) => {
-  console.log(`Loading: ${url}`)
   NProgress.start()
 }
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -66,10 +65,11 @@ handleClickOutside(event) {
 
 
 render() {
-
 	let dropDownClasses = ['dropdown-menu', 'd-none d-md-block'];
+	let arrowUpDown = <i class="fa fa-sort-desc" aria-hidden="true"></i>;
 	if (this.state && this.state.showDropDown) {
 		dropDownClasses.push("showDropDown");
+		arrowUpDown = <i class="fa fa-sort-asc" aria-hidden="true"></i>
 	}
 	let wrapperRef = null;
 	if (this.setWrapperRef) {
@@ -101,8 +101,8 @@ render() {
 		      </Link>
 		      </li>
 		      <li className="nav-item dropdown">
-		        <span onClick={this.toggleDropDownHandler} className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          Books
+		        <span onClick={this.toggleDropDownHandler} className="nav-link" id="navbarDropdown" role="button">
+		          Books {arrowUpDown}
 		        </span>
 
 		        <div onClick={this.hideDropDownHandler} className={dropDownClasses.join(" ")} aria-labelledby="navbarDropdown">

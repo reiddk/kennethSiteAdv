@@ -120,10 +120,9 @@
     }
 }
 .page {
-    margin-top: 40px;
+    margin-top:15px;
     min-height: 800px;
-        padding: 15px;
-        margin-bottom:40px;
+    padding: 15px;
 }
 
 .section-wrapper {
@@ -225,4 +224,36 @@ box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
 
 .show {
   display:block !important;
+}
+
+.next-prev {
+  padding: 30px;
+}
+
+.next-prev div {
+  position:relative;
+}
+
+.next-prev span {
+  font-size:20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.next-prev .fa {
+  font-size:26px;
+}
+
+@media screen and (max-width: 400px) {
+  .next-prev span {
+    font-size:16px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+.next-prev .fa {
+  font-size:16px;
+}}
+
+.nav-link {
+  cursor: pointer;
 }

@@ -28,6 +28,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _nextPrev = require('../nextPrev/nextPrev');
+
+var _nextPrev2 = _interopRequireDefault(_nextPrev);
+
+var _Aux = require('../hoc/Aux/Aux');
+
+var _Aux2 = _interopRequireDefault(_Aux);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _jsxFileName = '/home/reid/repos/kennethSiteAdv/components/page/index.js';
@@ -52,26 +60,43 @@ var Page = function (_Component) {
 		value: function render() {
 			var htmlDisplayed = _react2.default.createElement('div', { style: { textAlign: 'center', marginTop: '20%' }, __source: {
 					fileName: _jsxFileName,
-					lineNumber: 11
+					lineNumber: 13
 				}
 			}, _react2.default.createElement('div', { className: 'lds-dual-ring', __source: {
 					fileName: _jsxFileName,
-					lineNumber: 12
+					lineNumber: 14
 				}
 			}));
 
 			if (this.props.html) {
 				htmlDisplayed = _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.props.html }, __source: {
 						fileName: _jsxFileName,
-						lineNumber: 17
+						lineNumber: 19
 					}
 				});
 			}
-			return _react2.default.createElement('div', { className: 'page section-wrapper', __source: {
+			return _react2.default.createElement(_Aux2.default, {
+				__source: {
 					fileName: _jsxFileName,
-					lineNumber: 20
+					lineNumber: 22
 				}
-			}, htmlDisplayed);
+			}, _react2.default.createElement(_nextPrev2.default, { lastPage: this.props.lastPage, nextPage: this.props.nextPage, book: this.props.book, __source: {
+					fileName: _jsxFileName,
+					lineNumber: 23
+				}
+			}), _react2.default.createElement('div', { className: 'page section-wrapper', __source: {
+					fileName: _jsxFileName,
+					lineNumber: 24
+				}
+			}, htmlDisplayed), _react2.default.createElement(_nextPrev2.default, { lastPage: this.props.lastPage, nextPage: this.props.nextPage, book: this.props.book, __source: {
+					fileName: _jsxFileName,
+					lineNumber: 27
+				}
+			}), _react2.default.createElement('div', { style: { marginBottom: '50px' }, __source: {
+					fileName: _jsxFileName,
+					lineNumber: 28
+				}
+			}));
 		}
 	}]);
 
@@ -81,4 +106,4 @@ var Page = function (_Component) {
 ;
 
 exports.default = Page;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudHMvcGFnZS9pbmRleC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsIkNvbXBvbmVudCIsIlBhZ2UiLCJuZXh0UHJvcHMiLCJwcm9wcyIsImh0bWwiLCJodG1sRGlzcGxheWVkIiwidGV4dEFsaWduIiwibWFyZ2luVG9wIiwiX19odG1sIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEFBQU8sQUFBUzs7Ozs7Ozs7O0lBRVYsQTs7Ozs7Ozs7Ozs7d0NBRWlCLEEsV0FBVyxBQUMvQjtVQUFPLEtBQUEsQUFBSyxNQUFMLEFBQVcsU0FBUyxVQUEzQixBQUFxQyxBQUN0Qzs7OzsyQkFFUSxBQUNSO09BQUksZ0NBQ0gsY0FBQSxTQUFLLE9BQU8sRUFBQyxXQUFELEFBQVcsVUFBVSxXQUFqQyxBQUFZLEFBQWdDO2VBQTVDO2lCQUFBLEFBQ0E7QUFEQTtJQUFBLHlDQUNLLFdBQUwsQUFBZTtlQUFmO2lCQUZELEFBQ0MsQUFDQSxBQUlEO0FBSkM7OztPQUlHLEtBQUEsQUFBSyxNQUFULEFBQWUsTUFBTSxBQUNwQjsyREFBcUIseUJBQXlCLEVBQUMsUUFBUSxLQUFBLEFBQUssTUFBNUMsQUFBOEIsQUFBb0I7Z0JBQWxEO2tCQUFoQixBQUFnQixBQUNoQjtBQURnQjtLQUFBO0FBRWpCOzBCQUNBLGNBQUEsU0FBSyxXQUFMLEFBQWU7ZUFBZjtpQkFBQSxBQUNFO0FBREY7SUFBQSxFQURBLEFBQ0EsQUFJQTs7Ozs7QSxBQXJCaUI7O0FBdUJsQixBQUVEOztrQkFBQSxBQUFlIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9ob21lL3JlaWQvcmVwb3Mva2VubmV0aFNpdGVBZHYifQ==
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudHMvcGFnZS9pbmRleC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsIkNvbXBvbmVudCIsIk5leHRQcmV2IiwiQXV4IiwiUGFnZSIsIm5leHRQcm9wcyIsInByb3BzIiwiaHRtbCIsImh0bWxEaXNwbGF5ZWQiLCJ0ZXh0QWxpZ24iLCJtYXJnaW5Ub3AiLCJfX2h0bWwiLCJsYXN0UGFnZSIsIm5leHRQYWdlIiwiYm9vayIsIm1hcmdpbkJvdHRvbSJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxBQUFPLEFBQVM7Ozs7QUFDaEIsQUFBTyxBQUFjOzs7O0FBQ3JCLEFBQU8sQUFBUzs7Ozs7Ozs7O0lBRVYsQTs7Ozs7Ozs7Ozs7d0MsQUFFaUIsV0FBVyxBQUMvQjtVQUFPLEtBQUEsQUFBSyxNQUFMLEFBQVcsU0FBUyxVQUEzQixBQUFxQyxBQUN0Qzs7OzsyQkFFUSxBQUNSO09BQUksZ0NBQ0gsY0FBQSxTQUFLLE9BQU8sRUFBQyxXQUFELEFBQVcsVUFBVSxXQUFqQyxBQUFZLEFBQWdDO2VBQTVDO2lCQUFBLEFBQ0E7QUFEQTtJQUFBLHlDQUNLLFdBQUwsQUFBZTtlQUFmO2lCQUZELEFBQ0MsQUFDQSxBQUlEO0FBSkM7OztPQUlHLEtBQUEsQUFBSyxNQUFULEFBQWUsTUFBTSxBQUNwQjsyREFBcUIseUJBQXlCLEVBQUMsUUFBUSxLQUFBLEFBQUssTUFBNUMsQUFBOEIsQUFBb0I7Z0JBQWxEO2tCQUFoQixBQUFnQixBQUNoQjtBQURnQjtLQUFBO0FBRWpCOzBCQUNBLEFBQUM7O2VBQUQ7aUJBQUEsQUFDQztBQUREO0FBQUEsSUFBQSxrQkFDQyxBQUFDLG9DQUFTLFVBQVUsS0FBQSxBQUFLLE1BQXpCLEFBQStCLFVBQVUsVUFBVSxLQUFBLEFBQUssTUFBeEQsQUFBOEQsVUFBVSxNQUFNLEtBQUEsQUFBSyxNQUFuRixBQUF5RjtlQUF6RjtpQkFERCxBQUNDLEFBQ0E7QUFEQTt1QkFDQSxjQUFBLFNBQUssV0FBTCxBQUFlO2VBQWY7aUJBQUEsQUFDRTtBQURGO01BRkQsQUFFQyxBQUdBLGdDQUFBLEFBQUMsb0NBQVMsVUFBVSxLQUFBLEFBQUssTUFBekIsQUFBK0IsVUFBVSxVQUFVLEtBQUEsQUFBSyxNQUF4RCxBQUE4RCxVQUFVLE1BQU0sS0FBQSxBQUFLLE1BQW5GLEFBQXlGO2VBQXpGO2lCQUxELEFBS0MsQUFDQTtBQURBOzhDQUNLLE9BQU8sRUFBQyxjQUFiLEFBQVksQUFBZTtlQUEzQjtpQkFQRCxBQUNBLEFBTUMsQUFHRDtBQUhDOzs7Ozs7QSxBQXZCZ0I7O0FBNEJsQixBQUVEOztrQkFBQSxBQUFlIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6Ii9ob21lL3JlaWQvcmVwb3Mva2VubmV0aFNpdGVBZHYifQ==

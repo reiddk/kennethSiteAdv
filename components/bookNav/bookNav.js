@@ -45,7 +45,7 @@ class BookNav extends Component {
 		}
 		if (this.props.contents) {
 			const contentsTemp = this.props.contents;
-			const chapter = contentsTemp.filter(link => {
+			let chapter = contentsTemp.filter(link => {
 				if (link.tree.part === this.props.currPage
 					|| link.tree.chapter === this.props.currPage
 					|| link.tree.section === this.props.currPage
@@ -54,7 +54,12 @@ class BookNav extends Component {
 				} else {
 					return false;
 				}
-			})[0].tree.chapter;
+			});
+			if (chapter && chapter[0] && chapter[0].tree && chapter[0].tree.chapter) {
+				chapter = chapter[0].tree.chapter;
+			} else {
+				chapter = null;
+			}
 			contentsRendered = contentsTemp.map(link => {
 				let headClasses = ['sectionLink'];
 				if (this.props.currPage === link.link) {

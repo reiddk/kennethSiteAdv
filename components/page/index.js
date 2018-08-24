@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import NextPrev from '../nextPrev/nextPrev';
+import Aux from '../hoc/Aux/Aux';
 
 class Page extends Component {
 
@@ -17,9 +19,14 @@ class Page extends Component {
 			htmlDisplayed = <div dangerouslySetInnerHTML={{__html: this.props.html}} />
 		}
 		return (
-		<div className="page section-wrapper">
-			{htmlDisplayed}
-		</div>
+		<Aux>
+			<NextPrev lastPage={this.props.lastPage} nextPage={this.props.nextPage} book={this.props.book}/>
+			<div className="page section-wrapper">
+				{htmlDisplayed}
+			</div>
+			<NextPrev lastPage={this.props.lastPage} nextPage={this.props.nextPage} book={this.props.book}/>
+			<div style={{marginBottom: '50px'}}></div>
+		</Aux>
 		);	
 	}
 
