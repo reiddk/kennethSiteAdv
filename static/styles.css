@@ -1,0 +1,294 @@
+.mathImage > svg {
+    max-width: 100%;
+}
+
+.mathImage {
+    display: inline-block;
+}
+
+.dropdown-menu {
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.dropdown-toggle {
+	cursor: pointer;
+}
+
+.dropdown-menu, .showDropDown {
+    opacity: 0;
+    visibility: hidden;
+    display:block;
+    top: -10px;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.showDropDown {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+}
+
+
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-spinner div {
+  transform-origin: 32px 32px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #000;
+  border-color: #000 transparent #000 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.header {
+    width: 100%;
+    height: 250px;
+    background-image: url(/static/img/dragonA.jpg);
+    background-repeat: no-repeat;
+    margin-bottom: 20px;
+    background-size: cover;
+    max-width: 1200px;
+    margin: auto;
+    background-position-y: -48px;
+}
+
+@media screen and (max-width: 1000px) {
+    .header {
+      background-image: url(/static/img/dragonA1000.jpg);
+    }
+}
+@media screen and (max-width: 800px) {
+    .header {
+      background-image: url(/static/img/dragonA800.jpg);
+    }
+}
+@media screen and (max-width: 600px) {
+    .header {
+      background-image: url(/static/img/dragonA600.jpg);
+    }
+}
+@media screen and (max-width: 400px) {
+    .header {
+      background-image: url(/static/img/dragonA400.jpg);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .header {
+      background-position-y: 30px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .header {
+      background-position-x: -100px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .header {
+      background-position-x: -265px;
+    }
+}
+.page {
+    margin-top:15px;
+    min-height: 800px;
+    padding: 15px;
+}
+
+.section-wrapper {
+  -webkit-box-shadow: 2px 2px 12px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 12px 0px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 12px 0px rgba(0,0,0,0.75);
+  border-color: grey;
+    border-style: solid;
+    border-width: 1px;
+}
+
+@media screen and (max-width: 500px) {
+  .page {
+    padding: 0px;
+  }
+
+  .section-wrapper {
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+      border-width: 0px;
+  }
+
+}
+
+.book-nav {
+  margin-top: 40px;
+  height:500px;
+}
+
+.book-nav-fixed {
+  position:fixed;
+  top:25px;
+}
+
+.contents-relative {
+  position:relative;
+  height:400px;
+  overflow-y:scroll;
+  padding: 15px;
+}
+
+.part {
+  font-size: 18px;
+}
+
+.sectionLink a{
+    text-decoration: none;
+    color: black;
+    width:100%;
+    display:block;
+}
+
+.sectionLink {
+    padding:5px;
+}
+
+.sectionLink:hover{
+-webkit-box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
+-moz-box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
+box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
+
+
+}
+
+.chapter {
+  font-size: 16px;
+}
+
+
+.section {
+  display:none;
+  font-size: 14px;
+  margin-left: 10px;
+  padding-left:5px;
+  border-left-style:dotted;
+  border-left-color:grey;
+  border-left-width:1px;
+}
+
+
+.subsection {
+  display:none;
+  font-size: 12px;
+  margin-left: 20px;
+  padding-left:5px;
+  border-left-style:dotted;
+  border-left-color:grey;
+  border-left-width:1px;
+}
+
+
+.selected {
+  border-left-color:grey;
+  border-left-style:solid;
+  border-left-width:5px;
+  padding-left:5px;
+}
+
+.show {
+  display:block !important;
+}
+
+.next-prev {
+  padding: 30px;
+}
+
+.next-prev div {
+  position:relative;
+}
+
+.next-prev span {
+  font-size:20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.next-prev .fa {
+  font-size:26px;
+}
+
+@media screen and (max-width: 400px) {
+  .next-prev span {
+    font-size:16px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+.next-prev .fa {
+  font-size:16px;
+}}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.book-title {
+    text-align: center;
+    font-size: 30px;
+    max-width: 600px;
+    margin: 0px auto 0px auto;
+    padding-top:100px;
+    color: grey;
+    font-weight: 900;
+}
+
+.searchBox {
+  height: 70px;
+  padding: 15px;
+}
+
+.next-prev-search {
+    padding-left: 15px;
+    margin-left: 15px;
+    border-left-style: solid;
+    border-left-color: grey;
+    border-left-width: 1px;
+}
+
+.searchButtons {
+  cursor: pointer;
+}
+
+.searchButtons:hover {
+  opacity: .8;
+}
+
+.highlighted {
+  background-color: yellow;
+}
