@@ -9,7 +9,8 @@ class BookNav extends Component {
   state = {
   	fixIt: false,
   	width: 0,
-  	contents: null
+  	contents: null,
+  	mobileShow: null
   }
 
   componentDidMount() {
@@ -25,6 +26,19 @@ class BookNav extends Component {
   	}
   }
 
+  showNavBarHandler = () => {
+  	this.setState({mobileShow: true});
+  }
+
+  hideNavBarHandler = () => {
+  	this.setState({mobileShow: false});
+  }
+
+  toggleNavBarHandler = () => {
+  	const mobileShow = this.state.mobileShow;
+  	this.setState({mobileShow: !mobileShow});
+  }
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
   }
@@ -32,7 +46,7 @@ class BookNav extends Component {
   handleScroll = () => {
     const lastScrollY = window.scrollY;
 	const bodyRect = document.body.getBoundingClientRect();
-	const offset   = 225;
+	const offset   = 450;
 	const parentWidth = ReactDOM.findDOMNode(this).parentElement.clientWidth;
 	let fixed = this.state.fixIt;
 
@@ -46,12 +60,15 @@ class BookNav extends Component {
   };
 
 	render() {
-		const navClasses = ['section-wrapper', 'book-nav'];
+		const navClasses = ['section-wrapper', 'book-nav', 'book-nav-mobile'];
 		let fixedWidth = null;
 		let contentsRendered = null;
 		if (this.state.fixIt) {
 			navClasses.push('book-nav-fixed');
 			fixedWidth = this.state.width;
+		}
+		if (this.state.mobileShow) {
+			navClasses.push('book-nav-visible');
 		}
 		if (this.props.contents) {
 			const contentsTemp = this.props.contents;
@@ -101,7 +118,15 @@ class BookNav extends Component {
 				return null;
 			});
 		}
+		let arrowDirection = <i className="fa fa-chevron-left" aria-hidden="true"></i>;
+		let toggleOptionsClasses = ['toggle-options', 'd-md-none'];
+		if (this.state.mobileShow) {
+			arrowDirection = <i className="fa fa-chevron-right" aria-hidden="true"></i>;
+			toggleOptionsClasses.push('toggle-follow');
+		}
 		return (
+			<div>
+                  <div className={toggleOptionsClasses.join(" ")} onClick={this.toggleNavBarHandler}>{arrowDirection}</div>
 			<div className={navClasses.join(" ")} style={{width: fixedWidth}}>
 				<DownloadPdf bookTitle={this.props.title} book={this.props.book} />
 				<div className="contents-relative">
@@ -110,6 +135,7 @@ class BookNav extends Component {
 				<div className="searchBox">
 					<SearchBox book={this.props.book} currPage={this.props.currPage}/>
 				</div>
+			</div>
 			</div>
 		);
 	}

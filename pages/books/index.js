@@ -10,6 +10,8 @@ import BookNav from '../../components/bookNav/bookNav';
 import pako from 'pako';
 import base64 from 'base-64';
 import sanitizeHTML from 'sanitize-html';
+import Ads from '../../components/ads/ads';
+import Layout from '../../components/layout/layout'
 
 class IndexPage extends Component {
   state = {
@@ -122,6 +124,7 @@ class IndexPage extends Component {
       bookHtml = this.state.page;
     }
     return (
+      <Layout>
       <div className="blogpost-component">
 
           <Head>
@@ -130,6 +133,7 @@ class IndexPage extends Component {
               <link rel="stylesheet" href="/static/styles.css"/>
               <link rel="stylesheet" href="/static/fonts/font-awesome.min.css"/>
               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
           </Head>
           
               <div className="row">
@@ -141,14 +145,21 @@ class IndexPage extends Component {
               <div className="container">
               <div className="row">
                   <div className="col-md-9">
+                  <div className="d-md-none">
+                      <Ads />
+                  </div>
                       <Page html={bookHtml} book={this.props.theBook} lastPage={this.props.lastPage} nextPage={this.props.nextPage}/>
                   </div>
-                  <div className="col-md-3 d-none d-md-block" style={{padding: 0}}>
-                      <BookNav contents={this.props.contents} book={this.props.theBook} currPage={this.props.currPageId}/>
+                  <div className="col-md-3" style={{padding: 0}}>
+                  <div className="d-none d-md-block">
+                      <Ads />
+                  </div>
+                      <BookNav title={this.props.appName} contents={this.props.contents} book={this.props.theBook} currPage={this.props.currPageId}/>
                   </div>
               </div>
           </div>
       </div>
+      </Layout>
     );
   }
 }

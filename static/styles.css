@@ -297,3 +297,69 @@ box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
   padding: 5px;
   text-align:center;
 }
+
+.ad-wrapper {
+    width: 250px;
+    height: 250px;
+    padding: 15px;
+    display: block;
+    margin: auto;
+}
+
+@media screen and (max-width: 576px) {
+  .book-nav-mobile, .book-nav-visible {
+    z-index: 10;
+    position: fixed;
+    right: -400px;
+    top: 15px;
+    width: 330px !important;
+    background-color:white;
+    -webkit-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .book-nav-visible {
+    right: -5px;
+  }
+}
+
+.toggle-options, .toggle-follow {
+    height: 150px;
+    position: fixed;
+    background-color: #c3bdbd;
+    opacity: .5;
+    width: 40px;
+    top: 200px;
+    right: -25px;
+    border-radius: 50px;
+    z-index: 9;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.toggle-follow {
+  right: 300px;
+  opacity: .9;
+}
+
+.toggle-options i {
+    margin-top: 67px;
+    font-size: 16px;
+}
+.top-picture {
+  margin: auto;
+  max-width: 300px;
+  display:block;
+  margin-top:80px;
+}
+
+.top-picture img {
+  width: 100%;
+}
