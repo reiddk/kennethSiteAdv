@@ -8,6 +8,11 @@ class Page extends Component {
 	  return this.props.html !== nextProps.html;
 	}
 
+	componentDidUpdate() {
+		let event = new Event('build');
+		document.documentElement.dispatchEvent(event);
+	}
+
 	render() {
 		let htmlDisplayed = (
 			<div style={{textAlign:'center', marginTop: '20%'}}>

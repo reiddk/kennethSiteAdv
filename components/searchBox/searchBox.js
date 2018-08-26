@@ -5,16 +5,18 @@ import {Router} from '../../routes';
 
 class SearchBox extends Component {
 	state = {
-  		textSearchable: null,
-  		results: null,
-  		totalNumResults: null,
-  		stringSearching: null,
-  		currentPageIndexes: null
+		results: null
 	}
 
 	indexOfSearchOnPage = 0;
 	curr = 0;
 	matchingElements = [];
+	currentPage = null;
+	endBeginning = 0;
+	textSearchable = null;
+	totalNumResults = 0;
+	stringSearching = null;
+	currentPageIndexes = null;
 
 	utf8Decode(toDecode) {
 		let page = toDecode;
@@ -26,7 +28,6 @@ class SearchBox extends Component {
 		return page;
 	}
 
-
   componentDidMount() {
     axios({        
         method:'GET',
@@ -34,16 +35,28 @@ class SearchBox extends Component {
     })
     .then(res => {
     	const text = res.data;
-    	this.setState({textSearchable: text});
+    	this.currentPage = document.getElementById('page-to-search').textContent.replace(/\n/gi, ' ');
+    	this.textSearchable = text;
+    	this.setState({results: ['']});
     })
     .catch(e => {
     	console.log(e);
     });
+    let self = this;
+    document.documentElement.addEventListener('build', function (e) { 
+    	self.currentPage = document.getElementById('page-to-search').textContent.replace(/\n/gi, ' ');
+	  	const stringSearching = self.stringSearching;
+		self.searchHandler({target: {value: stringSearching}});
+		if (self.endBeginning && self.currentPageIndexes && self.currentPageIndexes.length) {
+			self.indexOfSearchOnPage = self.currentPageIndexes.length -1;
+		} else {
+			self.indexOfSearchOnPage = 0;
+		}
+     }, false);
   }
 
   pageSearch(value) {
-  	let currentPage = document.getElementById('page-to-search').textContent.replace(/\n/gi, ' ');
-  	console.log('new page search');
+  	let currentPage = this.currentPage;
 	let match = [];
 	let pos = 0;
 	  let num = -1;
@@ -83,25 +96,27 @@ class SearchBox extends Component {
   navigateAway(direction = 1) {
   	const tempResults = [...this.state.results];
   	let initialPage = 0;
+  	tempResults.shift();
   	for (let i = 0; i < tempResults.length; i++) {
   		if (tempResults[i] === this.props.currPage) {
   			initialPage = i;
   		}
   	}
   	if (initialPage + direction < 0) {
-  		initialPage = tempResults.length;
-  	}
-
-  	if (initialPage + direction > tempResults.length - 1) {
+  		initialPage = tempResults.length - 1;
+  	} else if (initialPage + direction > tempResults.length - 1) {
   		initialPage = 0;
+  	} else {
+  		initialPage += direction;
   	}
-  	initialPage += direction;
   	if (tempResults[initialPage]) {
 	  	const pageId = tempResults[initialPage];
+	  	if (direction < 0) {
+	  		this.endBeginning = 1;
+	  	} else {
+	  		this.endBeginning = 0;
+	  	}
 	  	Router.pushRoute('/books/' + this.props.book + '/' + pageId);
-	  	const stringSearching = this.state.stringSearching;
-		this.searchHandler({target: {value: stringSearching}});
-		this.indexOfSearchOnPage = 0;
   	}
   }
 
@@ -113,31 +128,26 @@ class SearchBox extends Component {
 	    el.className = el.className.replace(/highlighted/, "");
 	});
 
-  	if (!this.state.stringSearching) {
+  	if (!this.stringSearching) {
   		return;
   	}
-  	if (offset) {
-  		this.indexOfSearchOnPage += offset;
-  	} else {
-  		this.indexOfSearchOnPage = 0;
-  	}
+
+  	this.indexOfSearchOnPage += offset;
+
   	console.log(this.indexOfSearchOnPage);
   	this.curr = 0;
   	this.matchingElements = [];
   	let placeOnPage = this.indexOfSearchOnPage;
-  	if (placeOnPage === -1 && this.state.currentPageIndexes.length > 0) {
-  		placeOnPage = 0;
-  	}
-  	if (placeOnPage < -1 || this.state.currentPageIndexes.length === 0) {
+  	if (placeOnPage < 0 || this.currentPageIndexes.length === 0) {
   		this.navigateAway(-1)
   	}
-  	if (placeOnPage > this.state.currentPageIndexes.length - 1) {
+  	if (placeOnPage > this.currentPageIndexes.length - 1) {
   		this.navigateAway(1);
   	}
-  	const indexes = [...this.state.currentPageIndexes];
+  	const indexes = [...this.currentPageIndexes];
   	const currIndex = indexes[placeOnPage];
-  	if (this.state.stringSearching) {
-	  	const stringSearchingLength = this.state.stringSearching.length;
+  	if (this.stringSearching) {
+	  	const stringSearchingLength = this.stringSearching.length;
 	  	let doc = document.getElementById('page-to-search');
 	  	this.findElemAtIndex(doc, currIndex, currIndex + stringSearchingLength, []);
 	  	let navElem = null;
@@ -164,7 +174,7 @@ class SearchBox extends Component {
   searchHandler = (event) => {
   		let value = event.target.value;
   	if (value) {
-	  	const searchAble = {...this.state.textSearchable};
+	  	const searchAble = {...this.textSearchable};
 	  	let totalNum = 0;
 	  	const results = Object.keys(searchAble).filter(key => {
 	  		let page = this.utf8Decode(searchAble[key]).replace(/\n/gi, ' ');
@@ -179,12 +189,22 @@ class SearchBox extends Component {
 	  	});
 	  	const currentPageIndexes = this.pageSearch(value);
 	  	this.curr = 0;
-	  	this.setState({results: results, totalNumResults: totalNum, stringSearching: value, currentPageIndexes: currentPageIndexes});
+	  	this.setState({results: results});
+	  	this.totalNumResults = totalNum;
+	  	this.stringSearching = value;
+	  	this.currentPageIndexes = currentPageIndexes;
   	} else {
-	  	this.setState({results: null, totalNumResults: 0, stringSearching: null, currentPageIndexes: null });
-	  	this.highlightPageIndex();
+	  	this.setState({results: null});
+  		this.totalNumResults = 0;
+  		this.stringSearching = null;
+  		this.currentPageIndexes = null;
   	}
+  }
 
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.highlightPageIndex(1);
+    }
   }
 
 	render() {
@@ -194,19 +214,19 @@ class SearchBox extends Component {
 			</div></div>
 		);
 		let results = null;
-		if (this.state.textSearchable) {
+		if (this.textSearchable) {
 			let plural = 's';
 			if (this.state.results) {
 				const resultsArr =  [...this.state.results];
-				if (this.state.totalNumResults === 1) {
+				if (this.totalNumResults === 1) {
 					plural = '';
 				}
-				results = <div>{this.state.totalNumResults} result{plural} found.</div>;
+				results = <div>{this.totalNumResults} result{plural} found.</div>;
 			}
 			inputLoading = (
 				<div>
 					<div>
-						<input style={{width: '60%'}} onChange={this.searchHandler} placeholder="Search Book:" type="text"/>
+						<input onKeyPress={this.handleKeyPress} style={{width: '60%'}} onChange={this.searchHandler} placeholder="Search Book:" type="text"/>
 						<span className="next-prev-search">
 						<i onClick={() => this.highlightPageIndex(-1)} className="fa fa-chevron-up searchButtons" aria-hidden="true"></i>&nbsp;&nbsp;
 						<i onClick={() => this.highlightPageIndex(1)} className="fa fa-chevron-down searchButtons" aria-hidden="true"></i>

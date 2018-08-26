@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import renderHTML from 'react-render-html';
 import {Link} from '../../routes';
 import SearchBox from '../searchBox/searchBox';
+import DownloadPdf from '../downloadPdf/downloadPdf';
 
 class BookNav extends Component {
   state = {
@@ -18,7 +19,8 @@ class BookNav extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-  	if (nextProps.currPage.indexOf('.') > -1) {
+  	if (nextProps.currPage.indexOf('.') > -1 &&
+  		document.getElementsByClassName('selected')[0]) {
     	document.getElementsByClassName('selected')[0].scrollIntoView(true);
   	}
   }
@@ -101,6 +103,7 @@ class BookNav extends Component {
 		}
 		return (
 			<div className={navClasses.join(" ")} style={{width: fixedWidth}}>
+				<DownloadPdf bookTitle={this.props.title} book={this.props.book} />
 				<div className="contents-relative">
 						{contentsRendered}
 				</div>

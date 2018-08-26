@@ -150,7 +150,7 @@
 
 .book-nav {
   margin-top: 40px;
-  height:500px;
+  height:550px;
 }
 
 .book-nav-fixed {
@@ -291,4 +291,9 @@ box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.47);
 
 .highlighted {
   background-color: yellow;
+}
+
+.download-link {
+  padding: 5px;
+  text-align:center;
 }
