@@ -10,7 +10,7 @@ const homepage = (props) => {
         <div style={{width: '100%'}}>
         	<h1>Kenneth Kuttler</h1>
         	<h4>
-        		This is the personal website of Doctor Kenneth Kuttler.
+        		This is the personal website of Dr. Kenneth Kuttler.
         	</h4>
         	<p>
         		All pdfs on this site are free to download and use. If you want to reach him send him an email at <a href="mailto:klkuttle@mathematics.byu.edu" target="_blank" class="">klkuttle@mathematics.byu.edu</a>
