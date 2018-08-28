@@ -111,7 +111,7 @@ render() {
 		          <a className="dropdown-item" href="/books/Analysis/x1-2000I">Analysis</a>
 		        </Link>
 		        <Link route='/books/ComplexAnalysis/x1-3000I'>
-		          <a className="dropdown-item" href="/books/ComplexAnalysis/x1-3000I">Complex Analysis</a>
+		          <a className="dropdown-item" href="/books/ComplexAnalysis/x1-3000I">Complex of Real and Complex Variables</a>
 		        </Link>
 		        <Link route='/books/ElementaryLinearAlgebra/x1-30001'>
 		          <a className="dropdown-item" href="/books/ElementaryLinearAlgebra/x1-30001">Elementary Linear Algebra</a>

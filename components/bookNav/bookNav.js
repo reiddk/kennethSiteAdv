@@ -128,13 +128,13 @@ class BookNav extends Component {
 			<div>
                   <div className={toggleOptionsClasses.join(" ")} onClick={this.toggleNavBarHandler}>{arrowDirection}</div>
 			<div className={navClasses.join(" ")} style={{width: fixedWidth}}>
-				<DownloadPdf bookTitle={this.props.title} book={this.props.book} />
-				<div className="contents-relative">
-						{contentsRendered}
-				</div>
 				<div className="searchBox">
 					<SearchBox book={this.props.book} currPage={this.props.currPage}/>
 				</div>
+				<div className="contents-relative">
+						{contentsRendered}
+				</div>
+				<DownloadPdf bookTitle={this.props.title} book={this.props.book} />
 			</div>
 			</div>
 		);

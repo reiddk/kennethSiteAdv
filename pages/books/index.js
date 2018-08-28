@@ -25,7 +25,7 @@ class IndexPage extends Component {
     let nameToTitle = [
       {book: 'AdvancedCalculusSV', title: 'Advanced Calculus Single Variable'},
       {book: 'Analysis', title: 'Analysis'},
-      {book: 'ComplexAnalysis', title: 'Complex Analysis'},
+      {book: 'ComplexAnalysis', title: 'Complex of Real and Complex Variables'},
       {book: 'ElementaryLinearAlgebra', title: 'Elementary Linear Algebra'},
       {book: 'EngineeringMath', title: 'Engineering Math'},
       {book: 'Linearalgebra', title: 'Linear Algebra'},

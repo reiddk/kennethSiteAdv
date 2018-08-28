@@ -40,7 +40,6 @@ class SearchBox extends Component {
     	this.setState({results: ['']});
     })
     .catch(e => {
-    	console.log(e);
     });
     let self = this;
     document.documentElement.addEventListener('build', function (e) { 
@@ -52,7 +51,41 @@ class SearchBox extends Component {
 		} else {
 			self.indexOfSearchOnPage = 0;
 		}
+		self.searchPageWithIndexes();
      }, false);
+  }
+
+  searchPageWithIndexes() {
+  	let self = this;
+		if (self.currentPageIndexes) {
+			const indexes = [...self.currentPageIndexes];
+  			let placeOnPage = self.indexOfSearchOnPage;
+		  	const currIndex = indexes[placeOnPage];
+		  	if (self.stringSearching) {
+			  	const stringSearchingLength = self.stringSearching.length;
+			  	let doc = document.getElementById('page-to-search');
+			  	self.findElemAtIndex(doc, currIndex, currIndex + stringSearchingLength, []);
+			  	let navElem = null;
+			  	for (let i = 0; i < self.matchingElements.length; i++) {
+			  		let text = self.matchingElements[i].textNode;
+			  		let newElem = document.createElement("span");
+			  		newElem.innerText = text.nodeValue;
+			  		newElem.classList.add('highlighted');
+			  		try{
+				  		self.matchingElements[i].doc.insertBefore(newElem, text);
+				  		self.matchingElements[i].doc.removeChild(text);
+				  		navElem = newElem;
+			  		} catch(e) {
+			  		}
+			  	}
+			  	if (navElem) {
+			  		try {
+					  	navElem.scrollIntoView(true);
+					  	document.documentElement.scrollTop += -100;	
+			  		} catch(e) {}
+			  	}
+		  	}	
+		}
   }
 
   pageSearch(value) {
@@ -121,7 +154,6 @@ class SearchBox extends Component {
   }
 
   highlightPageIndex = (offset = 0) => {
-
   	let elems = document.querySelectorAll(".highlighted");
 
 	[].forEach.call(elems, function(el) {
@@ -134,40 +166,15 @@ class SearchBox extends Component {
 
   	this.indexOfSearchOnPage += offset;
 
-  	console.log(this.indexOfSearchOnPage);
   	this.curr = 0;
   	this.matchingElements = [];
   	let placeOnPage = this.indexOfSearchOnPage;
   	if (placeOnPage < 0 || this.currentPageIndexes.length === 0) {
   		this.navigateAway(-1)
-  	}
-  	if (placeOnPage > this.currentPageIndexes.length - 1) {
+  	} else if (placeOnPage > this.currentPageIndexes.length - 1) {
   		this.navigateAway(1);
-  	}
-  	const indexes = [...this.currentPageIndexes];
-  	const currIndex = indexes[placeOnPage];
-  	if (this.stringSearching) {
-	  	const stringSearchingLength = this.stringSearching.length;
-	  	let doc = document.getElementById('page-to-search');
-	  	this.findElemAtIndex(doc, currIndex, currIndex + stringSearchingLength, []);
-	  	let navElem = null;
-	  	for (let i = 0; i < this.matchingElements.length; i++) {
-	  		let text = this.matchingElements[i].textNode;
-	  		let newElem = document.createElement("span");
-	  		newElem.innerText = text.nodeValue;
-	  		newElem.classList.add('highlighted');
-	  		try{
-		  		this.matchingElements[i].doc.insertBefore(newElem, text);
-		  		this.matchingElements[i].doc.removeChild(text);
-		  		navElem = newElem;
-	  		} catch(e) {}
-	  	}
-	  	if (navElem) {
-	  		try {
-			  	navElem.scrollIntoView(true);
-			  	document.documentElement.scrollTop += -100;	
-	  		} catch(e) {}
-	  	}
+  	} else {
+  		this.searchPageWithIndexes();
   	}
   }
 
@@ -198,6 +205,7 @@ class SearchBox extends Component {
   		this.totalNumResults = 0;
   		this.stringSearching = null;
   		this.currentPageIndexes = null;
+  		this.indexOfSearchOnPage = 0;
   	}
   }
 
@@ -221,7 +229,7 @@ class SearchBox extends Component {
 				if (this.totalNumResults === 1) {
 					plural = '';
 				}
-				results = <div>{this.totalNumResults} result{plural} found.</div>;
+				//results = <div>{this.totalNumResults} result{plural} found.</div>;
 			}
 			inputLoading = (
 				<div>

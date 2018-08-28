@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3000/static/books/'
+    baseURL: 'https://s3.us-east-2.amazonaws.com/kennethbooks/books'
 });
 
 export default instance;
