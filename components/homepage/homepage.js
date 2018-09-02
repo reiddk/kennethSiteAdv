@@ -4,10 +4,7 @@ const homepage = (props) => {
 	return (
 
       <div className="row">
-        <div className="top-picture">
-        	<img src="/static/img/kennethKuttler.jpg" />
-        </div>
-        <div style={{width: '100%'}}>
+        <div style={{width: '100%', marginTop:'60px'}}>
         	<h1>Kenneth Kuttler</h1>
         	<h4>
         		This is the personal website of Dr. Kenneth Kuttler.
@@ -22,11 +19,9 @@ const homepage = (props) => {
 <p className="noindent" >
 </p><p className="noindent" ><span 
 className="cmbx-10x-x-109">Kenneth L.Kuttler,Jr.</span>
-</p><p className="noindent" >Department of Math
-</p><p className="noindent" >Brigham Young University
 </p><p className="noindent" >Provo, Utah 84602
 </p><p className="noindent" >Home: 801-358-4668
-</p><p className="noindent" >Work: 801-422-4756</p></div>
+</p><p className="noindent" >klkuttler@gmail.com</p></div>
 <p className="noindent" ><span 
 className="cmbx-10x-x-109">EDUCATION</span>
 </p><p className="indent" >   1981 The University of Texas at Austin
@@ -38,7 +33,7 @@ className="cmbx-10x-x-109">EDUCATION</span>
 </p><p className="indent" >   B.S. in Mathematics
 </p><p className="indent" >   <span 
 className="cmbx-10x-x-109">PROFESSIONAL EXPERIENCE</span>
-</p><p className="indent" >   1999- present Professor Brigham Young University
+</p><p className="indent" >   1999- 2018 Professor Brigham Young University
 </p><p className="indent" >   1998-1999 Visiting Professor Brigham Young University
 </p><p className="indent" >   1994- 1998 Associate Professor Michigan Technological University
 </p><p className="indent" >   1993 - 1994 Visiting Associate Professor Brigham Young University
@@ -61,9 +56,9 @@ className="cmbx-10x-x-109">SERVICE</span>
 </p><p className="indent" >   Computational Math Committee
 </p><p className="indent" >   Freshmen and Sophomore Advisor
 </p><p className="indent" >   Promotions and Tenure Committee
-
 </p><p className="indent" >   Applied Math Committee
 </p><p className="indent" >   Instructional Policy Committee
+
 </p><p className="indent" >   Assesment Committee
 </p><p className="indent" >   Curiculum Committee
 </p><p className="indent" >   Reviewer for Mathematical Reviews
@@ -599,7 +594,7 @@ className="newline" />http://www.centerofmath.org/textbooks/pre_calc/index.html 
   className="enumerate" id="x1-185x92">Andrews K., Kuttler, K. ,Li Ji, and Shillor M., Measurable solutions for elliptic inclusions
      and quasistatic problems, To appear in Computers and Math with Applications. as of 4 Aug.
      2018.</li></ol>
-        </div>
+      </div>
       </div>
 
 	);

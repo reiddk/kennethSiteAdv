@@ -25,7 +25,7 @@ class IndexPage extends Component {
     let nameToTitle = [
       {book: 'AdvancedCalculusSV', title: 'Advanced Calculus Single Variable'},
       {book: 'Analysis', title: 'Analysis'},
-      {book: 'ComplexAnalysis', title: 'Complex of Real and Complex Variables'},
+      {book: 'ComplexAnalysis', title: 'Calculus of Real and Complex Variables'},
       {book: 'ElementaryLinearAlgebra', title: 'Elementary Linear Algebra'},
       {book: 'EngineeringMath', title: 'Engineering Math'},
       {book: 'Linearalgebra', title: 'Linear Algebra'},
@@ -62,7 +62,13 @@ class IndexPage extends Component {
         page = page.replace(/<h4$/i, '');
       }
     }
-    page = page.replace(/<script/gi, '')
+    page = page.replace(/<script/gi, '');
+    let description = page.substring(0, 2000).replace(/\n/g, ' ').match(/^.*<\/h[1-6]>/);
+    if (description && description[0]) {
+      description = description[0].replace(/<[^>]*>/gi, '');
+    } else {
+      description = '';
+    }
     let builtContents = null;
     let lastPage = null;
     let currPage = null;
@@ -108,9 +114,9 @@ class IndexPage extends Component {
           return outPage;
         });
     }
-
+    description = 'Free pdf download of ' + book + '. ' + description;
     const promise = new Promise((resolve, reject) => {
-        resolve({ appName: title, theBook: book, page: page, contents: builtContents, currPageId: pageId, lastPage: lastPage, nextPage: nextPage });
+        resolve({ appName: title, theBook: book, page: page, contents: builtContents, currPageId: pageId, lastPage: lastPage, nextPage: nextPage, description: description });
     });
     return promise;
   }
@@ -123,6 +129,7 @@ class IndexPage extends Component {
     if (this.state.page) {
       bookHtml = this.state.page;
     }
+
     return (
       <Layout>
       <div className="blogpost-component">
@@ -134,6 +141,8 @@ class IndexPage extends Component {
               <link rel="stylesheet" href="/static/fonts/font-awesome.min.css"/>
               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <script src="/static/custom-scripts/ads.js"></script>
+              <meta name="description" content={this.props.description} />
           </Head>
           
               <div className="row">
