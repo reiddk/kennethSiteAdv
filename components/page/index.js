@@ -10,8 +10,10 @@ let positionReleased = 0;
 class Page extends Component {
 
 	setCookie(currPageId) {
+		let d = new Date();
+		d.setTime(d.getTime() + (365 *24 * 60 * 1000));
 		const cookies = new Cookies();
-		cookies.set(this.props.book, currPageId);
+		cookies.set(this.props.book, currPageId, {expires: d});
 	}
 
 	componentDidMount() {
