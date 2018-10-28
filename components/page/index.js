@@ -3,12 +3,19 @@ import NextPrev from '../nextPrev/nextPrev';
 import Aux from '../hoc/Aux/Aux';
 import Swipe from 'react-easy-swipe';
 import {Router} from '../../routes';
+import Cookies from 'universal-cookie';
 
 let positionReleased = 0;
 
 class Page extends Component {
 
+	setCookie(currPageId) {
+		const cookies = new Cookies();
+		cookies.set(this.props.book, currPageId);
+	}
+
 	componentDidMount() {
+		this.setCookie(this.props.currPageId);
 		document.documentElement.addEventListener('build', function (e) { 
 			document.getElementById('page-to-search').style.opacity = 1;
 		});
@@ -20,6 +27,7 @@ class Page extends Component {
 
 	componentDidUpdate() {
 		let event = new Event('build');
+		this.setCookie(this.props.currPageId);
 		document.documentElement.dispatchEvent(event);
 	}
 
@@ -37,8 +45,10 @@ class Page extends Component {
 	 
 	  onSwipeEnd = (event) => {
 	    if (positionReleased > 125 && this.props.lastPage) {
+			this.setCookie(this.props.lastPage);
 	  		Router.pushRoute('/books/' + this.props.book + '/' + this.props.lastPage);
 	    } else if (positionReleased < -125 && this.props.nextPage) {
+			this.setCookie(this.props.nextPage);
 	  		Router.pushRoute('/books/' + this.props.book + '/' + this.props.nextPage);
 	    } else {
 			document.getElementById('page-to-search').style.opacity = 1;

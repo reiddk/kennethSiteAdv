@@ -5,6 +5,8 @@ import {Link} from '../../routes'
 import Aux from '../hoc/Aux/Aux';
 import NProgress from 'nprogress';
 import Router from 'next/router'
+import BooksToTitles from '../../enums/booksToTitles';
+import Cookies from 'universal-cookie';
 
 Router.onRouteChangeStart = (url) => {
   NProgress.start()
@@ -78,6 +80,20 @@ render() {
 		mobileDropDown.push('show');
 	}
 
+	const cookies = new Cookies();
+
+	const bookLinks = BooksToTitles.map(book => {
+			let link = '/books/' + book.book + '/' + book.first;
+			if (cookies.get(book.book)) {
+				link = '/books/' + book.book + '/' + cookies.get(book.book);
+			}
+		return (
+				<Link route={link}>
+		          <a className="dropdown-item" href={link}>{book.title}</a>
+		        </Link>
+		        );
+	});
+
 	return (
 		<Aux>
 	    <Head>
@@ -104,57 +120,11 @@ render() {
 		        </span>
 
 		        <div onClick={this.hideDropDownHandler} className={dropDownClasses.join(" ")} aria-labelledby="navbarDropdown">
-		        <Link route='/books/AdvancedCalculusSV/x1-20001'>
-		          <a className="dropdown-item" href="/books/AdvancedCalculusSV/x1-20001">Advanced Calculus (Single Variable)</a>
-		        </Link>
-		        <Link route='/books/Analysis/x1-2000I'>
-		          <a className="dropdown-item" href="/books/Analysis/x1-2000I">Analysis</a>
-		        </Link>
-		        <Link route='/books/ComplexAnalysis/x1-3000I'>
-		          <a className="dropdown-item" href="/books/ComplexAnalysis/x1-3000I">Calculus of Real and Complex Variables</a>
-		        </Link>
-		        <Link route='/books/ElementaryLinearAlgebra/x1-30001'>
-		          <a className="dropdown-item" href="/books/ElementaryLinearAlgebra/x1-30001">Elementary Linear Algebra</a>
-		        </Link>
-		        <Link route='/books/EngineeringMath/x1-20001'>
-		          <a className="dropdown-item" href="/books/EngineeringMath/x1-20001">Engineering Math</a>
-		        </Link>
-		        <Link route='/books/Linearalgebra/x1-30001'>
-		          <a className="dropdown-item" href="/books/Linearalgebra/x1-30001">Linear Algebra</a>
-		        </Link>
-		        <Link route='/books/LinearAlgebraAndAnalysis/x1-30001'>
-		          <a className="dropdown-item" href="/books/LinearAlgebraAndAnalysis/x1-30001">Linear Algebra and Analysis</a>
-		        </Link>
-		        <Link route='/books/TopicsInAnalysis/x1-2000I'>
-		          <a className="dropdown-item" href="/books/TopicsInAnalysis/x1-2000I">Topics in Analysis</a>
-		        </Link>
+		        	{bookLinks}
 		        </div>
 
 		        <div onClick={this.hideDropDownHandler} className="d-md-none dropdown-menu showDropDown" aria-labelledby="navbarDropdown">
-		        <Link route='/books/AdvancedCalculusSV/x1-20001'>
-		          <a className="dropdown-item" href="/books/AdvancedCalculusSV/x1-20001">Advanced Calculus (Single Variable)</a>
-		        </Link>
-		        <Link route='/books/Analysis/x1-2000I'>
-		          <a className="dropdown-item" href="/books/Analysis/x1-2000I">Analysis</a>
-		        </Link>
-		        <Link route='/books/ComplexAnalysis/x1-3000I'>
-		          <a className="dropdown-item" href="/books/ComplexAnalysis/x1-3000I">Complex Analysis</a>
-		        </Link>
-		        <Link route='/books/ElementaryLinearAlgebra/x1-30001'>
-		          <a className="dropdown-item" href="/books/ElementaryLinearAlgebra/x1-30001">Elementary Linear Algebra</a>
-		        </Link>
-		        <Link route='/books/EngineeringMath/x1-20001'>
-		          <a className="dropdown-item" href="/books/EngineeringMath/x1-20001">Engineering Math</a>
-		        </Link>
-		        <Link route='/books/Linearalgebra/x1-30001'>
-		          <a className="dropdown-item" href="/books/Linearalgebra/x1-30001">Linear Algebra</a>
-		        </Link>
-		        <Link route='/books/LinearAlgebraAndAnalysis/x1-30001'>
-		          <a className="dropdown-item" href="/books/LinearAlgebraAndAnalysis/x1-30001">Linear Algebra and Analysis</a>
-		        </Link>
-		        <Link route='/books/TopicsInAnalysis/x1-2000I'>
-		          <a className="dropdown-item" href="/books/TopicsInAnalysis/x1-2000I">Topics in Analysis</a>
-		        </Link>
+		        	{bookLinks}
 		        </div>
 		      </li>
 		    </ul>

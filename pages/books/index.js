@@ -11,7 +11,8 @@ import pako from 'pako';
 import base64 from 'base-64';
 import sanitizeHTML from 'sanitize-html';
 import Ads from '../../components/ads/ads';
-import Layout from '../../components/layout/layout'
+import Layout from '../../components/layout/layout';
+import BooksToTitles from '../../enums/booksToTitles';
 
 class IndexPage extends Component {
   state = {
@@ -22,16 +23,7 @@ class IndexPage extends Component {
   }
 
   static async getInitialProps({query}) {
-    let nameToTitle = [
-      {book: 'AdvancedCalculusSV', title: 'Advanced Calculus Single Variable'},
-      {book: 'Analysis', title: 'Analysis'},
-      {book: 'ComplexAnalysis', title: 'Calculus of Real and Complex Variables'},
-      {book: 'ElementaryLinearAlgebra', title: 'Elementary Linear Algebra'},
-      {book: 'EngineeringMath', title: 'Engineering Math'},
-      {book: 'Linearalgebra', title: 'Linear Algebra'},
-      {book: 'LinearAlgebraAndAnalysis', title: 'Linear Algebra and Analysis'},
-      {book: 'TopicsInAnalysis', title: 'Topics In Analysis'},
-    ];
+    let nameToTitle = BooksToTitles;
 
     let title = "Kenneth Kuttler";
     let book = null;
@@ -157,7 +149,7 @@ class IndexPage extends Component {
                   <div className="d-md-none">
                       <Ads />
                   </div>
-                      <Page html={bookHtml} book={this.props.theBook} lastPage={this.props.lastPage} nextPage={this.props.nextPage}/>
+                      <Page currPageId={this.props.currPageId} html={bookHtml} book={this.props.theBook} lastPage={this.props.lastPage} nextPage={this.props.nextPage}/>
                   </div>
                   <div className="col-md-3" style={{padding: 0}}>
                   <div className="d-none d-md-block">
