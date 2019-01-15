@@ -88,7 +88,7 @@ render() {
 				link = '/books/' + book.book + '/' + cookies.get(book.book);
 			}
 		return (
-				<Link route={link}>
+				<Link key={book.key} route={link}>
 		          <a className="dropdown-item" href={link}>{book.title}</a>
 		        </Link>
 		        );

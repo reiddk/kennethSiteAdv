@@ -7,6 +7,7 @@ const booksToTitles = [
       {key: '6', book: 'Linearalgebra', title: 'Linear Algebra', first: 'x1-30001'},
       {key: '7', book: 'LinearAlgebraAndAnalysis', title: 'Linear Algebra and Analysis', first: 'x1-30001'},
       {key: '8', book: 'TopicsInAnalysis', title: 'Topics In Analysis', first: 'x1-2000I'},
+      {key: '9', book: 'CalculusOneAndManyVariables', title: 'Calculus of One and Several Variables', first: 'x1-3000I'}
     ];
 
 export default booksToTitles;
