@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head'
 import {Link} from '../../routes'
-import Aux from '../hoc/Aux/Aux';
+import Aux from '../hoc/ux/ux';
 import NProgress from 'nprogress';
 import Router from 'next/router'
 import BooksToTitles from '../../enums/booksToTitles';
@@ -92,7 +92,23 @@ render() {
 		          <a className="dropdown-item" href={link}>{book.title}</a>
 		        </Link>
 		        );
-	});
+    });
+
+    const bookNavBarLinks = (
+        <li className="nav-item dropdown">
+            <span onClick={this.toggleDropDownHandler} className="nav-link" id="navbarDropdown" role="button">
+                Books {arrowUpDown}
+            </span>
+
+            <div onClick={this.hideDropDownHandler} className={dropDownClasses.join(" ")} aria-labelledby="navbarDropdown">
+                {bookLinks}
+            </div>
+
+            <div onClick={this.hideDropDownHandler} className="d-md-none dropdown-menu showDropDown" aria-labelledby="navbarDropdown">
+                {bookLinks}
+            </div>
+        </li>
+        );
 
 	return (
 		<Aux>
@@ -113,19 +129,6 @@ render() {
 		      <Link route='/'>
 		        <a className="nav-link" href="/">Home</a>
 		      </Link>
-		      </li>
-		      <li className="nav-item dropdown">
-		        <span onClick={this.toggleDropDownHandler} className="nav-link" id="navbarDropdown" role="button">
-		          Books {arrowUpDown}
-		        </span>
-
-		        <div onClick={this.hideDropDownHandler} className={dropDownClasses.join(" ")} aria-labelledby="navbarDropdown">
-		        	{bookLinks}
-		        </div>
-
-		        <div onClick={this.hideDropDownHandler} className="d-md-none dropdown-menu showDropDown" aria-labelledby="navbarDropdown">
-		        	{bookLinks}
-		        </div>
 		      </li>
 		    </ul>
 		  </div>

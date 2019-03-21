@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import NextPrev from '../nextPrev/nextPrev';
-import Aux from '../hoc/Aux/Aux';
+import Aux from '../hoc/ux/ux';
 import Swipe from 'react-easy-swipe';
 import {Router} from '../../routes';
 import Cookies from 'universal-cookie';
+import * as PDFDocument from 'pdfkit';
 
 let positionReleased = 0;
 
 class Page extends Component {
+
+    doc = new PDFDocument;
 
 	setCookie(currPageId) {
 		let d = new Date();
